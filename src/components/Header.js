@@ -2,7 +2,7 @@ import "./Header.css";
 import logo from "../components/logo.png";
 import { Link } from "react-router-dom";
 
-const Header = ({ handleToken, token, search, setSearch }) => {
+const Header = ({ handleTokenAndId, token, search, setSearch }) => {
   return (
     <header>
       {/* SI TOKEN ON AFFICHE BOUTON DECONNECTE, SINON S'INSCRIRE ET SE CONNECTER */}
@@ -10,7 +10,7 @@ const Header = ({ handleToken, token, search, setSearch }) => {
         <button
           onClick={() => {
             // ON SUPPRIME LE COOKIE (Cookies.remove("token-vinted");)
-            handleToken(null);
+            handleTokenAndId(null, null);
           }}
         >
           Se Déconnecter

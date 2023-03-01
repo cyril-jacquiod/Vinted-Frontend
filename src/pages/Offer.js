@@ -6,11 +6,11 @@ import { useParams } from "react-router-dom";
 // BESOIN D'UITILSER LINK
 import { Link } from "react-router-dom";
 
-//**************************************************************/
-/**SELECTION ET AFFICHAGE D'UNE OFFRE DANS LE CATALOGUE VIA ID***/
+/***************************************************************/
+/* SELECTION ET AFFICHAGE D'UNE OFFRE DANS LE CATALOGUE VIA ID */
 /***************************************************************/
 
-const Offer = () => {
+const Offer = ({ token }) => {
   // RECUPERATION DE L'ID DANS L'URL
   const params = useParams();
   const id = params.id;
@@ -69,13 +69,9 @@ const Offer = () => {
       <p>{data.product_name}</p>
       <p>{data.product_description}</p>
       <p>{data.owner.account.username}</p>
-      <Link
-        to="/payment"
-        state={{ title: data.product_title, price: data.product_price }}
-      >
+      <Link to={token ? "/payment" : "/login"} state={token ? data : null}>
         Acheter
       </Link>
-      ;
     </div>
   );
 };

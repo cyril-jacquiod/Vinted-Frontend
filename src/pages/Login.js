@@ -2,12 +2,14 @@ import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
 
-const Login = ({ handleToken }) => {
+const Login = ({ handleTokenAndId }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  // APPEL NAVIGATION
   const navigate = useNavigate();
 
+  // LOGIN
   const handleLogin = async (event) => {
     event.preventDefault();
     try {
@@ -21,7 +23,7 @@ const Login = ({ handleToken }) => {
       console.log(response.data);
       if (response.data.token) {
         // Cookies.set("token-vinted", response.data.token, { expires: 14 });
-        handleToken(response.data.token);
+        handleTokenAndId(response.data.token, response.data._id);
         navigate("/");
       }
     } catch (error) {

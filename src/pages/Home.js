@@ -21,9 +21,9 @@ const Home = ({ search }) => {
       try {
         // DECLARATION DE LA VARIABLE RESPONSE AVEC CLE RECHERCHE TITLE FONCTIONNE PAS
         const response = await axios.get(
-          // `https://lereacteur-vinted-api.herokuapp.com/offers?title=${search}`
+          `https://lereacteur-vinted-api.herokuapp.com/offers?title=${search}`
 
-          `https://lereacteur-vinted-api.herokuapp.com/offers`
+          // `https://lereacteur-vinted-api.herokuapp.com/offers`
         );
         // VERIFICATION AVEC console.log(response.data);
         // STOCKAGE DU RESULTAT DANS DATA
@@ -45,7 +45,7 @@ const Home = ({ search }) => {
       {/* // UTILISATION D'UN TABLEAU POUR RECUPERER LES DATAS */}
       {data.offers.map((offer) => {
         // RECUPERATION DES OFFRES PAR ID
-        return <Article offer={offer} key={offer._id} />;
+        return <Article offerInfos={offer} key={offer._id} />;
       })}
     </div>
   );

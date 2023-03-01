@@ -2,7 +2,7 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useState } from "react";
 
-const Signup = ({ handleToken }) => {
+const Signup = ({ handleTokenAndId }) => {
   // STATE QUI GERENT LES INPUTS DU FORMULAIRE SIGNUP
   const [username, setUserName] = useState("");
   const [email, setEmail] = useState("");
@@ -34,7 +34,7 @@ const Signup = ({ handleToken }) => {
       // SI TOKEN GENERE ET STOCKE DANS APP.JS
       if (response.data.token) {
         // J'ENREGISTRE MON STATE ET MES COOKIES
-        handleToken(response.data.token);
+        handleTokenAndId(response.data.token, response.data._id);
         // PUIS JE REDIRIGE VERS LA PAGE HOME APRES EXECUTION FONCTION
         navigate("/");
       }
@@ -62,7 +62,7 @@ const Signup = ({ handleToken }) => {
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        flexDirection: "column",
+        heigth: "100vh",
       }}
     >
       {/* STYLE CSS POUR LE BODY */}

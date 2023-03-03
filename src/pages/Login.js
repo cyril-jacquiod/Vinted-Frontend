@@ -1,79 +1,76 @@
-import { Link, useNavigate } from "react-router-dom";
-import { useState } from "react";
+import React, { useState } from "react";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
+import Loader from "react-loader-spinner";
 
-const Login = ({ handleTokenAndId }) => {
+import "../assets/styles/login.css";
+
+const Login = ({ setUser }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [errorMessage, setErrorMessage] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
 
-  // APPEL NAVIGATION
   const navigate = useNavigate();
+  const location = useLocation();
+  const fromPublish = location.state?.fromPublish ? true : null;
 
-  // LOGIN
-  const handleLogin = async (event) => {
-    event.preventDefault();
+  const handleSubmit = async (event) => {
     try {
+      event.preventDefault();
+      setIsLoading(true);
       const response = await axios.post(
-        "https://lereacteur-vinted-api.herokuapp.com/user/login",
+        `${process.env.REACT_APP_BASE_URL}/user/login`,
         {
           email: email,
           password: password,
         }
       );
-      console.log(response.data);
       if (response.data.token) {
-        // Cookies.set("token-vinted", response.data.token, { expires: 14 });
-        handleTokenAndId(response.data.token, response.data._id);
-        navigate("/");
+        setUser(response.data.token);
+        setIsLoading(false);
+        navigate(fromPublish ? "/publish" : "/");
+      } else {
+        alert("Une erreur est survenue, veuillez réssayer.");
       }
     } catch (error) {
-      //   console.log(error.message);
-      console.log(error.response.data);
+      if (error.response.status === 401 || error.response.status === 400) {
+        setErrorMessage("Mauvais email et/ou mot de passe");
+        setIsLoading(false);
+      }
+      console.log(error.message);
     }
   };
 
   return (
-    <div
-      // STYLE INLINE POUR LE FORMULAIRE
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        aligncontent: "center",
-        width: "100vw",
-        height: "50vh",
-      }}
-    >
-      <form
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          flexDirection: "column",
-        }}
-        onSubmit={handleLogin}
-      >
-        <h1 style={{ fontsize: "22", marginBottom: "20" }}>Se Connecter</h1>
+    <div className="signup-container">
+      <h2>Se connecter</h2>
+      <form onSubmit={handleSubmit} className="signup-form">
         <input
-          value={email}
-          type="email"
-          placeholder="Email"
-          // DECLARATION DE FONCTION
           onChange={(event) => {
             setEmail(event.target.value);
+            setErrorMessage("");
           }}
+          placeholder="Adresse email"
+          type="email"
         />
         <input
-          value={password}
-          type="password"
-          placeholder="Mot de passe"
           onChange={(event) => {
             setPassword(event.target.value);
           }}
+          placeholder="Mot de passe"
+          type="password"
         />
-        <input type="submit" value="Se connecter" />
-        {/* // RE-DIRIGE A LA PAGE SIGNUP */}
-        <Link to="/signup">Pas encore de compte ? Inscris-toi</Link>
+        <span className="signup-login-error-message">{errorMessage}</span>
+        {isLoading ? (
+          <Loader type="Puff" color="#2CB1BA" height={40} width={40} />
+        ) : (
+          <button disabled={isLoading ? true : false} type="submit">
+            Se connecter
+          </button>
+        )}
       </form>
+      <Link to="/signup">Pas encore de compte ? Inscris-toi !</Link>
     </div>
   );
 };

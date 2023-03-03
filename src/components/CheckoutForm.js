@@ -1,62 +1,53 @@
-import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
-import Cookies from "js-cookie";
+import React, { useState } from "react";
+import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
+
 import axios from "axios";
-import { useState } from "react";
 
-const CheckoutForm = ({ product_name, product_price }) => {
-  const [paymentStatus, setPaymentStatus] = useState(0); // 0 = pas encore cliqué / 1 = en attente de réponse / 2 = OK / 3 = Error
-
-  const elements = useElements();
+const CheckoutForm = ({ productName, totalPrice }) => {
+  const [isPaid, setIsPaid] = useState(false);
   const stripe = useStripe();
+  const elements = useElements();
 
-  const userId = Cookies.get("id-vinted");
-  console.log(userId);
+  // console.log(totalPrice);
 
   const handleSubmit = async (event) => {
-    event.preventDefault();
     try {
-      setPaymentStatus(1);
+      event.preventDefault();
+      // On récupère ici les données bancaires que l'utilisateur rentre
       const cardElement = elements.getElement(CardElement);
       const stripeResponse = await stripe.createToken(cardElement, {
-        name: userId,
+        name: "L'id de l'acheteur",
       });
-      const stripeToken = stripeResponse.token.id;
-      //   console.log(stripeToken);
+
+      // console.log(stripeResponse);
+
       const response = await axios.post(
-        "https://lereacteur-vinted-api.herokuapp.com/payment",
+        `${process.env.REACT_APP_BASE_URL}/payment`,
         {
-          token: stripeToken,
-          // le token que vous avez reçu de l'API Stripe
-          title: product_name,
-          amount: product_price,
-          // le prix indiquée dans l'annonce
+          amount: totalPrice,
+          title: productName,
+          token: stripeResponse.token.id,
         }
       );
-      console.log(response.data);
-      if (response.data.status === "succeeded") {
-        setPaymentStatus(2);
+
+      if (response.data) {
+        setIsPaid(true);
+      } else {
+        alert("Une erreur est survenue, veuillez réssayer.");
       }
     } catch (error) {
-      setPaymentStatus(3);
       console.log(error.message);
     }
   };
 
-  return (
+  return isPaid ? (
+    <p>Merci pour votre achat.</p>
+  ) : (
     <form onSubmit={handleSubmit}>
       <CardElement />
-
-      {paymentStatus === 2 ? (
-        <p>Paiement validé</p>
-      ) : (
-        <button disabled={paymentStatus === 1} type="submit">
-          Pay !
-        </button>
-      )}
-
-      {paymentStatus === 3 && (
-        <p>Une erreur est survenue, veuillez réessayer :) </p>
-      )}
+      <button type="submit" disabled={!stripe}>
+        Pay
+      </button>
     </form>
   );
 };

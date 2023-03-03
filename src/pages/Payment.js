@@ -1,43 +1,42 @@
-import { Navigate, useLocation } from "react-router-dom";
-import { Elements } from "@stripe/react-stripe-js";
+import React from "react";
+import { useLocation } from "react-router-dom";
 import { loadStripe } from "@stripe/stripe-js";
-
+import { Elements } from "@stripe/react-stripe-js";
+import "../assets/styles/payment.css";
 import CheckoutForm from "../components/CheckoutForm";
+import ProductSummary from "../components/ProductSummary";
 
-const Payment = ({ token }) => {
+const Payment = () => {
   const location = useLocation();
   //   console.log(location);
-  const { product_name, product_price } = location.state;
-  //   console.log(product_name);
-  //   console.log(product_price);
-
   const stripePromise = loadStripe(
     "pk_test_51HCObyDVswqktOkX6VVcoA7V2sjOJCUB4FBt3EOiAdSz5vWudpWxwcSY8z2feWXBq6lwMgAb5IVZZ1p84ntLq03H00LDVc2RwP"
   );
-  return token ? (
-    <div
-      style={{
-        height: "100vh",
-        width: "100vw",
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-      }}
-    >
-      <div>
-        <h1>Résumé de la commande</h1>
-        <p>Prix de la commande : {product_price} €</p>
-        <p>Vous allez acheter : {product_name}</p>
-        <Elements stripe={stripePromise}>
-          <CheckoutForm
-            product_name={product_name}
-            product_price={product_price}
-          />
-        </Elements>
+  const { productName, totalPrice, protectionFees, shippingFees, price } =
+    location.state;
+  return (
+    <div className="payment-wrapper">
+      <div className="payment-container">
+        <ProductSummary
+          price={price}
+          protectionFees={protectionFees}
+          shippingFees={shippingFees}
+          totalPrice={totalPrice}
+        />
+        <div className="payment-card">
+          <div className="content">
+            Il ne vous reste plus qu'un étape pour vous offrir
+            <span className="bold"> {productName}</span>. Vous allez payer{" "}
+            <span className="bold">{totalPrice} €</span> (frais de protection et
+            frais de port inclus).
+            <div className="divider" />
+            <Elements stripe={stripePromise}>
+              <CheckoutForm productName={productName} totalPrice={totalPrice} />
+            </Elements>
+          </div>
+        </div>
       </div>
     </div>
-  ) : (
-    <Navigate to="/login" />
   );
 };
 

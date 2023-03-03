@@ -1,53 +1,49 @@
 //**************************************************/
 /**CATALOGUE DES OFFRES VINTED**********************/
 /***************************************************/
+import React from "react";
+import { useNavigate } from "react-router-dom";
+import Card from "../components/Card";
+import tear from "../assets/images/tear.svg";
+import Triangle from "react-loader-spinner";
+import "../assets/styles/home.css";
 
-// BESOIN DE STATE
-import React, { useState, useEffect } from "react";
-// BESOIN DE REQUETE AXIOS (GET)
-import axios from "axios";
-import Article from "../components/Article";
-// DECLARATION DE VARIABLE AVEC LA PROPS SEARCH POUR LA RECHERCHE ARTICLE
-const Home = ({ search }) => {
-  // STATE DE RECUPERATION DU DATA
-  const [data, setData] = useState();
-  // STATE PERMETTANT DE SAVOIR SI DATA RECUPERE
-  const [isLoading, setIsLoading] = useState(true);
+const Home = ({ data, isLoading }) => {
+  const navigate = useNavigate();
 
-  useEffect(() => {
-    // DECLARATION DE FONCTION FAISANT LA REQUETE VIA UNE AUTRE FONCTION (FCT USEEFFECT PAS ASYNC)
-    const fetchData = async () => {
-      // TRY CATCH EN CAS DE REQUETE KO
-      try {
-        // DECLARATION DE LA VARIABLE RESPONSE AVEC CLE RECHERCHE TITLE FONCTIONNE PAS
-        const response = await axios.get(
-          `https://lereacteur-vinted-api.herokuapp.com/offers?title=${search}`
-
-          // `https://lereacteur-vinted-api.herokuapp.com/offers`
-        );
-        // VERIFICATION AVEC console.log(response.data);
-        // STOCKAGE DU RESULTAT DANS DATA
-        setData(response.data);
-        // METTRE ISLOADING A FALSE
-        setIsLoading(false);
-      } catch (error) {
-        console.log(error.message);
-      }
-    };
-    // APPEL DE LA FONCTION AVEC PROPS SEARCH
-    fetchData();
-  }, [search]);
-  // MESSAGE DE TELECHARGEMENT
   return isLoading ? (
-    <p>Loading ...</p>
+    <Triangle
+      className="home-loader"
+      type="Puff"
+      color="#2CB1BA"
+      height={80}
+      width={80}
+    />
   ) : (
-    <div>
-      {/* // UTILISATION D'UN TABLEAU POUR RECUPERER LES DATAS */}
-      {data.offers.map((offer) => {
-        // RECUPERATION DES OFFRES PAR ID
-        return <Article offerInfos={offer} key={offer._id} />;
-      })}
-    </div>
+    <>
+      <div className="home-hero-bg-img">
+        <img src={tear} alt="forme" className="home-hero-forme" />
+        <div>
+          <div className="home-hero-ready">
+            Prêts à faire du tri dans vos placards ?
+            <button
+              onClick={() => {
+                navigate("/publish");
+              }}
+            >
+              Commencer à vendre
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div className="home-card-wrapper">
+        {data.offers &&
+          data.offers.map((card, index) => {
+            return <Card key={index} data={card} />;
+          })}
+      </div>
+    </>
   );
 };
 

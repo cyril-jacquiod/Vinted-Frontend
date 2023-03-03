@@ -1,108 +1,113 @@
-import "./Header.css";
-import logo from "../components/logo.png";
-import { Link } from "react-router-dom";
+import React from "react";
+import logo from "../assets/images/logo.png";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useNavigate, useLocation } from "react-router-dom";
+import PriceRange from "./PriceRange";
 
-const Header = ({ handleTokenAndId, token, search, setSearch }) => {
+const Header = ({
+  token,
+  setUser,
+  setFetchRangeValues,
+  sortPrice,
+  setSortPrice,
+  setSearch,
+}) => {
+  const navigate = useNavigate();
+
+  const location = useLocation();
+
   return (
-    <header>
-      {/* SI TOKEN ON AFFICHE BOUTON DECONNECTE, SINON S'INSCRIRE ET SE CONNECTER */}
+    <div className="header-container">
+      <div
+        onClick={() => {
+          navigate("/");
+        }}
+      >
+        <img className="header-logo" src={logo} alt="vinted" />
+      </div>
+
+      <div className="search-container">
+        <input
+          type="text"
+          className="search-input"
+          placeholder="Recherche des articles"
+          onChange={(event) => setSearch(event.target.value)}
+        />
+        <FontAwesomeIcon icon="search" className="search-input-icon" />
+        {location.pathname === "/" ? (
+          <div>
+            <div
+              style={{
+                marginTop: 25,
+                fontSize: "12px",
+                display: "flex",
+                alignItems: "center",
+              }}
+            >
+              <span style={{ marginRight: 10 }}>Trier par prix : </span>
+              <span className="checkbox">
+                <input
+                  type="checkbox"
+                  checked={sortPrice}
+                  onChange={() => {}}
+                  name="price"
+                />
+                <div
+                  className="wrapper"
+                  onClick={() => {
+                    setSortPrice(!sortPrice);
+                  }}
+                >
+                  <div className="knob">
+                    <span>{sortPrice ? "⇣" : "⇡"}</span>
+                  </div>
+                </div>
+              </span>
+              <span style={{ marginRight: 10 }}>Prix entre : </span>
+              <PriceRange setFetchRangeValues={setFetchRangeValues} />
+            </div>
+          </div>
+        ) : null}
+      </div>
+
       {token ? (
         <button
           onClick={() => {
-            // ON SUPPRIME LE COOKIE (Cookies.remove("token-vinted");)
-            handleTokenAndId(null, null);
+            setUser(null);
           }}
+          className="button-logout"
         >
-          Se Déconnecter
+          Se déconnecter
         </button>
       ) : (
-        <>
-          <span>
-            <img
-              src={logo}
-              alt="logo vinted"
-              style={{
-                blockSize: 30,
-                marginRight: 40,
-                alignItems: "bottom",
-              }}
-            />
-          </span>
-          {/* // STYLE INLINE POUR LES BOUTONS */}
-          {/* BARRE DE RECHERCHE SUR MOT CLE */}
-          <input
-            style={{
-              background: "#f5f6f7",
-              color: "lightgrey",
-              borderColor: "lightgrey",
-              textAlign: "left",
-              borderRadius: 5,
-              marginLeft: 10,
-              minWidth: 500,
-              height: 30,
-              marginRight: 40,
+        <div>
+          <button
+            onClick={() => {
+              navigate("/signup");
             }}
-            // ON RECUPERE LA VALEUR AFFICHÉE
-            value={search}
-            type="text"
-            placeholder="Rechercher des articles"
-            onChange={(event) => {
-              setSearch(event.target.value);
+            className="header-button button-login-signup button-signup"
+          >
+            S'inscrire
+          </button>
+          <button
+            onClick={() => {
+              navigate("/login");
             }}
-          />
-          {/* Recherche des articles
-            </button> */}
-          <Link to="/signup">
-            <button
-              style={{
-                borderColor: "#007580",
-                background: "white",
-                height: 30,
-                color: "#007580",
-                fontSize: 12,
-                borderRadius: 5,
-                minWidth: 100,
-              }}
-            >
-              S'inscrire
-            </button>
-          </Link>
-          <Link to="/login">
-            <button
-              style={{
-                borderColor: "#007580",
-                background: "white",
-                height: 30,
-                color: "#007580",
-                fontSize: 12,
-                borderRadius: 5,
-                minWidth: 100,
-              }}
-            >
-              Se connecter
-            </button>
-          </Link>
-
-          {/* // SI TOKEN OK CONNECT */}
-          <Link to={token ? "/Publish" : "/login"}>
-            {/* <Link to={"/Publish"}> */}
-            <button
-              style={{
-                background: "#007580",
-                borderColor: "#007580",
-                height: 30,
-                color: "white",
-                fontSize: 12,
-                borderRadius: 5,
-                marginLeft: 10,
-              }}
-            >
-              Vends tes articles
-            </button>
-          </Link>
-        </>
+            className="header-button button-login-signup"
+          >
+            Se connecter
+          </button>
+        </div>
       )}
-    </header>
+      <button
+        onClick={() => {
+          navigate("/publish");
+        }}
+        className="header-button button-sold"
+      >
+        Vends tes articles
+      </button>
+    </div>
   );
 };
 

@@ -159,7 +159,7 @@
   font-size: 16px;
 }
 .text-input > textarea:focus {
-  border-bottom: 1px solid #0ab1ba;
+  border-bottom: 1px solid #017580;
   background-color: white;
 }
 .text-input > textarea::placeholder {
@@ -181,14 +181,14 @@
   border-radius: 3px;
   padding: 3px 6px 3px 6px;
   margin: 0 15px 0 0;
-  background-color: #0ab1ba;
+  background-color: #017580;
 }
 .form-button-div {
   display: flex;
   justify-content: flex-end;
 }
 .form-validation {
-  background-color: #0ab1ba;
+  background-color: #017580;
   color: white;
   border: none;
   font: inherit;
@@ -199,8 +199,8 @@
 }
 .save-offer {
   background-color: transparent;
-  color: #0ab1ba;
-  border: 1px solid #0ab1ba;
+  color: #017580;
+  border: 1px solid #017580;
   font: inherit;
   outline: inherit;
   border-radius: 4px;

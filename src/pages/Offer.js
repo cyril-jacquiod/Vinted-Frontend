@@ -3,7 +3,9 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 // BESOIN D'UTILISER DES ID
 import { useParams, useNavigate } from "react-router-dom";
-import Triangle from "react-loader-spinner";
+// IMPORT DU SABLIER DE TELECHARGEMENT
+import { Triangle } from "react-loader-spinner";
+// IMPORT PAGE STYLE CSS
 import "../assets/styles/offer.css";
 
 /***************************************************************/
@@ -18,7 +20,7 @@ const Offer = () => {
   const [data, setData] = useState({});
   // STATE PERMETTANT DE SAVOIR SI DATA RECUPERE
   const [isLoading, setIsLoading] = useState(true);
-  // RANGE DU PRIX
+  // FICHE PAIEMENT
   const price = data.product_price;
   const protectionFees = (price / 10).toFixed(2);
   const shippingFees = (protectionFees * 2).toFixed(2);
@@ -29,7 +31,9 @@ const Offer = () => {
     const fetchData = async () => {
       // RECUPERATION DES DONNEES VIA ID
       const response = await axios.get(
-        `${process.env.REACT_APP_BASE_URL}/offer/${params.id}`
+        // `${process.env.REACT_APP_BASE_URL}/offers/${params.id}`
+        // `https://lereacteur-vinted-api.herokuapp.com/offers/${params.id}`
+        `https://lereacteur-vinted-api.herokuapp.com/offers/63ceb13bc18578beb3db52d3`
       );
       // VERIFICATION : console.log(response.data);
       // STOCKAGE DU RESULTAT DANS DATA
@@ -44,14 +48,14 @@ const Offer = () => {
   return isLoading ? (
     // LOADIND DE TELECHARGEMENT
     <Triangle
-      className="home-loader"
+      // className="home-loader"
       type="Puff"
-      color="#2CB1BA"
+      color="#017580"
       height={80}
       width={80}
     />
   ) : (
-    // SI TERMINÉ AFFICHER LES IMAGES LES UNE APRES LES AUTRES
+    // SI TERMINÉ AFFICHER L'OFFRE SELECTIONNEE
     <div className="offer-body">
       <div className="offer-container">
         <div className="offer-pictures">
@@ -105,7 +109,6 @@ const Offer = () => {
               <span>{data.owner && data.owner.account.username}</span>
             </div>
           </div>
-
           <button
             onClick={() => {
               navigate("/payment", {

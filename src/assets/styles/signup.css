@@ -27,12 +27,12 @@
 
 .signup-form input[type="checkbox"] {
   transform: scale(2);
-  margin-right: 20px;
 }
 
 .checkbox-container {
   margin-top: 20px;
   padding: 10px;
+  margin-bottom: 20px;
 }
 .checkbox-container > div {
   display: flex;
@@ -48,7 +48,7 @@
 }
 
 .signup-form button {
-  background-color: #2cb1ba;
+  background-color: #017580;
   height: 45px;
   width: 100%;
   border: none;
@@ -60,11 +60,11 @@
 }
 
 .signup-container a {
-  color: #2cb1ba;
+  color: #017580;
   font-size: 12px;
 }
 
 .signup-login-error-message {
-  color: red;
+  color: black;
   font-size: 9px;
 }

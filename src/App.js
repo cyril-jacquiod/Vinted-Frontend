@@ -14,7 +14,7 @@ import Signup from "./pages/Signup";
 import Login from "./pages/Login";
 import Publish from "./pages/Publish";
 import Payment from "./pages/Payment";
-
+// LIBRARY FONTAWESOME
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { faSearch, faCheck, faRedo } from "@fortawesome/free-solid-svg-icons";
 library.add(faSearch, faCheck, faRedo);
@@ -24,12 +24,14 @@ function App() {
   const [token, setToken] = useState(Cookies.get("token-vinted") || null);
   // STATE POUR STOCKER VALEUR DE RECHERCHE
   const [search, setSearch] = useState("");
-
+  // STATE POUR RECUPERER LES DONNÉES
   const [data, setData] = useState([]);
+  // STATE POUR MESSAGE D'ATTENTE
   const [isLoading, setIsLoading] = useState(false);
+  // STATE POUR TRIER ET SELECTIONNER LES ARTICLES PAR PRIX
   const [sortPrice, setSortPrice] = useState(false);
   const [fetchRangeValues, setFetchRangeValues] = useState([0, 10000]);
-
+  // TEST CONNECTION
   const setUser = (token) => {
     if (token) {
       setToken(token);
@@ -39,10 +41,11 @@ function App() {
       Cookies.remove("token");
     }
   };
+  // RECUPERATION DES OFFRES VINTED
   useEffect(() => {
     const fetchData = async () => {
       const response = await axios.get(
-        `${process.env.REACT_APP_BASE_URL}/offers?priceMin=${
+        `https://lereacteur-vinted-api.herokuapp.com/offers?priceMin=${
           fetchRangeValues[0]
         }&priceMax=${fetchRangeValues[1]}&sort=${
           sortPrice ? "price-desc" : "price-asc"
@@ -66,11 +69,11 @@ function App() {
       />
       <body>
         <Routes>
-          {/* ROUTES FAISANT APPEL AUX COMPOSANTS (PAGES OU CONTAINERS) DES PROPS ELEMENT "HOME" "OFFER" "SIGNUP" */}
           <Route
             path="/"
             element={<Home data={data} isLoading={isLoading} />}
           />
+          {/* ROUTES FAISANT APPEL AUX COMPOSANTS (PAGES OU CONTAINERS) DES PROPS ELEMENT "HOME" "OFFER" "SIGNUP" */}
           <Route path="/signup" element={<Signup setUser={setUser} />} />
           <Route path="/login" element={<Login setUser={setUser} />} />
           <Route path="/publish" element={<Publish token={token} />} />
@@ -79,7 +82,19 @@ function App() {
           <Route path="/payment" element={<Payment />} />
         </Routes>
       </body>
-      <footer>Made By Cyril at LeReacteur</footer>
+      <footer
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          color: "white",
+          height: 40,
+          backgroundColor: "#017580",
+          marginTop: 100,
+        }}
+      >
+        Made By Cyril at LeReacteur
+      </footer>
     </Router>
   );
 }

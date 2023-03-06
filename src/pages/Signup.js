@@ -20,11 +20,10 @@ const Signup = ({ setUser }) => {
     // SUPRESSION DU MESSAGE D'ERREUR
     try {
       event.preventDefault();
-      // REQUETE AXIOS AVEC 1ER ARGUMENT POUR INTERROGER L'URL ET 2EME POUR ENVOI DU BODY
+      // REQUETE AXIOS POUR ENVOI
       const response = await axios.post(
-        `${process.env.REACT_APP_BASE_URL}/user/signup`,
-
-        // "https://lereacteur-vinted-api.herokuapp.com/user/signup",
+        // `${process.env.REACT_APP_BASE_URL}/user/signup`,
+        `http://localhost:3000/user/signup`,
         {
           email: email,
           username: username,
@@ -32,7 +31,7 @@ const Signup = ({ setUser }) => {
           // newsletter: newsletter,
         }
       );
-      // SI TOKEN GENERE ET STOCKE DANS APP.JS
+      // SI TOKEN OK - GENERE ET STOCKE DANS APP.JS
       if (response.data.token) {
         setUser(response.data.token);
         navigate("/");

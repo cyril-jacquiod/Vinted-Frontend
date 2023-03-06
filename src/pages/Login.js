@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
-import Loader from "react-loader-spinner";
+import { Triangle } from "react-loader-spinner";
 
 import "../assets/styles/login.css";
 
@@ -20,7 +20,9 @@ const Login = ({ setUser }) => {
       event.preventDefault();
       setIsLoading(true);
       const response = await axios.post(
-        `${process.env.REACT_APP_BASE_URL}/user/login`,
+        // `${process.env.REACT_APP_BASE_URL}/user/login`,
+        `http://localhost:3000/user/login`,
+
         {
           email: email,
           password: password,
@@ -63,7 +65,13 @@ const Login = ({ setUser }) => {
         />
         <span className="signup-login-error-message">{errorMessage}</span>
         {isLoading ? (
-          <Loader type="Puff" color="#2CB1BA" height={40} width={40} />
+          <Triangle
+            type="Puff"
+            alignItems="center"
+            color="#017580"
+            height={40}
+            width={40}
+          />
         ) : (
           <button disabled={isLoading ? true : false} type="submit">
             Se connecter

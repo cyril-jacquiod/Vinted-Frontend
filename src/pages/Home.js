@@ -4,8 +4,8 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import Card from "../components/Card";
-import tear from "../assets/images/tear.svg";
-import Triangle from "react-loader-spinner";
+// import tear from "../assets/images/tear.svg";
+import { Triangle } from "react-loader-spinner";
 import "../assets/styles/home.css";
 
 const Home = ({ data, isLoading }) => {
@@ -15,14 +15,14 @@ const Home = ({ data, isLoading }) => {
     <Triangle
       className="home-loader"
       type="Puff"
-      color="#2CB1BA"
+      color="#017580"
       height={80}
       width={80}
     />
   ) : (
     <>
       <div className="home-hero-bg-img">
-        <img src={tear} alt="forme" className="home-hero-forme" />
+        {/* <img src={tear} alt="forme" className="home-hero-forme" /> */}
         <div>
           <div className="home-hero-ready">
             Prêts à faire du tri dans vos placards ?
@@ -31,12 +31,11 @@ const Home = ({ data, isLoading }) => {
                 navigate("/publish");
               }}
             >
-              Commencer à vendre
+              Vendez maintenant
             </button>
           </div>
         </div>
       </div>
-
       <div className="home-card-wrapper">
         {data.offers &&
           data.offers.map((card, index) => {

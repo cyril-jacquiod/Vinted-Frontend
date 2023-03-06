@@ -3,6 +3,7 @@ import axios from "axios";
 import { Navigate, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
+// IMPORT DU CODE CSS
 import "../assets/styles/publish.css";
 
 // PROPS TOKEN POUR VERIFIER QUE L'UTILISATEUR EST CONNECTE
@@ -38,7 +39,9 @@ const Publish = ({ token }) => {
 
       // REQUETE DU SERVEUR VIA AXIOS
       const response = await axios.post(
-        `${process.env.REACT_APP_BASE_URL}/offer/publish`,
+        // `${process.env.REACT_APP_BASE_URL}/offer/publish`,
+        `http://localhost:3000/offer/publish`,
+
         formData,
         {
           headers: {
@@ -48,9 +51,9 @@ const Publish = ({ token }) => {
           },
         }
       );
-      // console.log(response.data);
+      // VERIFICATION console.log(response.data);
       if (response.data._id) {
-        // redirectoin vers l'offre
+        // REDIRIGE VERS OFFRE
         navigate(`/offer/${response.data._id}`);
       } else {
         alert("Une erreur est survenue, veuillez réssayer");
@@ -62,7 +65,7 @@ const Publish = ({ token }) => {
       );
     }
   };
-
+  // PUBLICATION DE L'OFFRE
   return token ? (
     <div className="publish-main">
       <div className="publish-container">

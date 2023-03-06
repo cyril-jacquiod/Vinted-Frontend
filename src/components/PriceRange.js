@@ -1,15 +1,15 @@
 import React, { useState } from "react";
 import { Range, getTrackBackground } from "react-range";
 
-const MIN = 0;
-const MAX = 500;
-
+//
+const MIN = 1;
+const MAX = 400;
 const PriceRange = ({ setFetchRangeValues }) => {
-  const [rangeValues, setRangeValues] = useState([10, 100]);
+  const [rangeValues, setRangeValues] = useState([1, 100]);
 
   return (
     <Range
-      step={5}
+      step={1}
       min={MIN}
       max={MAX}
       values={rangeValues}
@@ -34,7 +34,7 @@ const PriceRange = ({ setFetchRangeValues }) => {
               borderRadius: "4px",
               background: getTrackBackground({
                 values: rangeValues,
-                colors: ["#ccc", " #2cb1ba", "#ccc"],
+                colors: ["#ccc", " #017580", "#ccc"],
                 min: MIN,
                 max: MAX,
               }),
@@ -54,7 +54,7 @@ const PriceRange = ({ setFetchRangeValues }) => {
             width: "15px",
             borderRadius: "50%",
             border: isDragged ? "" : "1px solid white",
-            backgroundColor: "#2cb1ba",
+            backgroundColor: "#017580",
             outline: "none",
             display: "flex",
             justifyContent: "center",
@@ -70,7 +70,7 @@ const PriceRange = ({ setFetchRangeValues }) => {
               fontFamily: "Maison Neue",
               padding: "4px",
               borderRadius: "4px",
-              backgroundColor: "#2cb1ba",
+              backgroundColor: "#017580",
             }}
           >
             {rangeValues[index]}€

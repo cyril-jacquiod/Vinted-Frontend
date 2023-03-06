@@ -39,7 +39,7 @@ const Header = ({
             <div
               style={{
                 marginTop: 25,
-                fontSize: "12px",
+                fontSize: "13px",
                 display: "flex",
                 alignItems: "center",
               }}

@@ -1,12 +1,27 @@
-/* HOME ***************************** */
+/*********************************************/
+/********** HOME BODY ************************/
+/*********************************************/
 
+/* ENCART "PRETS A FAIRE DU TRI..." */
 .home-loader {
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
 }
+.home-hero-bg-img > div {
+  width: 1280px;
+  margin: auto;
+}
+.home-hero-forme {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  height: 80px;
+  pointer-events: none;
+}
 
+/* IMAGE BACKGROUND */
 .home-hero-bg-img {
   background-image: url("../../assets/images/hero.jpg");
   height: 455px;
@@ -14,11 +29,6 @@
   position: relative;
   background-position: center;
   background-size: cover;
-}
-
-.home-hero-bg-img > div {
-  width: 1280px;
-  margin: auto;
 }
 
 .home-hero-ready {
@@ -35,7 +45,7 @@
   top: 75px;
   box-shadow: 0px 0px 2px rgba(17, 17, 17, 0.24);
 }
-
+/* BOUTON VENDEZ-MAINTENANT */
 .home-hero-ready button {
   height: 45px;
   width: 187px;
@@ -48,30 +58,23 @@
   margin-top: 32px;
 }
 
-.home-hero-forme {
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  height: 80px;
-  pointer-events: none;
-}
 .home-card-wrapper {
   width: 1280px;
   display: flex;
   flex-wrap: wrap;
   margin: auto;
-  margin-top: 30px;
+  margin-top: 40px;
 }
-
+/* IMAGE DU CARROUSSEL OFFRES */
 .card-container {
-  width: 235px;
+  width: 240px;
   padding: 0 6px 16px;
   cursor: pointer;
 }
 
 .card-container div:last-child img {
-  height: 360px;
-  width: 235px;
+  height: 260px;
+  width: 240px;
   object-fit: cover;
 }
 
@@ -79,6 +82,7 @@
   display: flex;
   align-items: center;
   padding: 10px;
+  height: 25px;
 }
 
 .card-avatar-username > img {
@@ -91,7 +95,7 @@
 
 .card-avatar-username > span {
   color: #999999;
-  font-size: 12px;
+  font-size: 18px;
 }
 
 .card-price-size-brand {
@@ -101,9 +105,9 @@
 }
 
 .card-price-size-brand span:first-child {
-  font-size: 14px;
+  font-size: 18px;
 }
 .card-price-size-brand span:not(:first-child) {
-  font-size: 12px;
+  font-size: 14px;
   color: #999999;
 }

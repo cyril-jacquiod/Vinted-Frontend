@@ -1,7 +1,7 @@
-/* OFFER ************************************* */
+/*********** OFFER ****************/
+/**********************************/
 .offer-body {
   height: calc(100vh - 60px);
-  background-color: #ebedee;
   /* height: calc(100vh - 59px); */
 }
 
@@ -16,15 +16,15 @@
 
 .offer-picture {
   height: 600px;
+  width: 800px;
   object-fit: cover;
 }
-
 .offer-infos {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  background-color: white;
-  width: 320px;
+  background-color: rgb(246, 244, 244);
+  width: 300px;
   padding: 40px;
 }
 
@@ -38,15 +38,13 @@
   list-style-type: none;
   padding: 0;
 }
-
 .offer-list li {
   display: flex;
-  padding: 2px 0;
+  padding: 5px 0;
 }
-
 .offer-list span {
   flex: 1;
-  font-size: 14px;
+  font-size: 16px;
   text-transform: uppercase;
 }
 
@@ -76,8 +74,8 @@
 
 .offer-infos button {
   color: #fff;
-  background: #09b1ba;
-  border: solid 1px #09b1ba;
+  background: #017580;
+  border: solid 1px #017580;
   border-radius: 4px;
   width: 100%;
   font-size: 16px;
@@ -88,11 +86,11 @@
 }
 
 .offer-infos button:hover {
-  background: #09adb6;
+  background: #017580;
 }
 
 .offer-infos button:active {
-  background: #09a3ac;
+  background: #017580;
 }
 
 .carousel .thumbs-wrapper {

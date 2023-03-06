@@ -2,23 +2,23 @@ import React, { useState } from "react";
 import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
 
 import axios from "axios";
-
+// REGELEMENT CLIENT ET RECUPERATION DES DONNEES BANCAIRES
 const CheckoutForm = ({ productName, totalPrice }) => {
   const [isPaid, setIsPaid] = useState(false);
   const stripe = useStripe();
   const elements = useElements();
-
+  // VERIFICATION
   // console.log(totalPrice);
 
   const handleSubmit = async (event) => {
     try {
       event.preventDefault();
-      // On récupère ici les données bancaires que l'utilisateur rentre
+      // RECUPERATION DES DONNEES BANCAIRES SAISIES PAR LE CLIENT
       const cardElement = elements.getElement(CardElement);
       const stripeResponse = await stripe.createToken(cardElement, {
         name: "L'id de l'acheteur",
       });
-
+      // VERIFICATION
       // console.log(stripeResponse);
 
       const response = await axios.post(

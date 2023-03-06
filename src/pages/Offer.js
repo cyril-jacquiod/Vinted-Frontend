@@ -30,16 +30,20 @@ const Offer = () => {
     // DECLARATION DE FONCTION FAISANT LA REQUETE
     const fetchData = async () => {
       // RECUPERATION DES DONNEES VIA ID
-      const response = await axios.get(
-        // `${process.env.REACT_APP_BASE_URL}/offers/${params.id}`
-        // `https://lereacteur-vinted-api.herokuapp.com/offers/${params.id}`
-        `https://lereacteur-vinted-api.herokuapp.com/offers/63ceb13bc18578beb3db52d3`
-      );
-      // VERIFICATION : console.log(response.data);
-      // STOCKAGE DU RESULTAT DANS DATA
-      setData(response.data);
-      // METTRE ISLOADING A FALSE
-      setIsLoading(false);
+      try {
+        const response = await axios.get(
+          // `${process.env.REACT_APP_BASE_URL}/offers/${params.id}`
+          `https://lereacteur-vinted-api.herokuapp.com/offer/${params.id}`
+          // `https://lereacteur-vinted-api.herokuapp.com/offer/63ceb13bc18578beb3db52d3`
+        );
+        // VERIFICATION : console.log(response.data);
+        // STOCKAGE DU RESULTAT DANS DATA
+        setData(response.data);
+        // METTRE ISLOADING A FALSE
+        setIsLoading(false);
+      } catch (error) {
+        console.log(error.response);
+      }
     };
     // APPEL DE LA FONCTION AVEC CLE ID AU CAS OU MODIF
     fetchData();

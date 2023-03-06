@@ -45,6 +45,7 @@ function App() {
   useEffect(() => {
     const fetchData = async () => {
       const response = await axios.get(
+        // `${process.env.REACT_APP_BASE_URL}/offers?priceMin=${
         `https://lereacteur-vinted-api.herokuapp.com/offers?priceMin=${
           fetchRangeValues[0]
         }&priceMax=${fetchRangeValues[1]}&sort=${
@@ -93,7 +94,7 @@ function App() {
           marginTop: 100,
         }}
       >
-        Made By Cyril at LeReacteur
+        Replique faite au Reacteur
       </footer>
     </Router>
   );

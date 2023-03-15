@@ -24,6 +24,7 @@ const Publish = ({ token }) => {
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
+    console.log("1");
     try {
       e.preventDefault();
       const formData = new FormData();
@@ -36,8 +37,9 @@ const Publish = ({ token }) => {
       formData.append("condition", selectedWearRate);
       formData.append("city", city);
       formData.append("brand", selectedBrand);
+      console.log("2");
 
-      // REQUETE DU SERVEUR VIA AXIOS
+      // REQUETE DU SERVEUR
       const response = await axios.post(
         // `${process.env.REACT_APP_BASE_URL}/offer/publish`,
         `http://localhost:3000/offer/publish`,
@@ -51,14 +53,18 @@ const Publish = ({ token }) => {
           },
         }
       );
+      console.log("3");
       // VERIFICATION console.log(response.data);
       if (response.data._id) {
-        // REDIRIGE VERS OFFRE
+        console.log("4");
+        // APRES PUBLICATION REDIRIGE VERS OFFER
         navigate(`/offer/${response.data._id}`);
       } else {
         alert("Une erreur est survenue, veuillez réssayer");
       }
+      console.log("5");
     } catch (error) {
+      console.log("6");
       alert(
         error?.response?.data?.message ||
           "Une erreur est survenue, veuillez réssayer"

@@ -1,6 +1,7 @@
 //**************************************************/
 /**CATALOGUE DES OFFRES VINTED**********************/
 /***************************************************/
+
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import Card from "../components/Card";

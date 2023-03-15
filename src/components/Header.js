@@ -13,7 +13,6 @@ const Header = ({
   setSearch,
 }) => {
   const navigate = useNavigate();
-
   const location = useLocation();
 
   return (
@@ -39,7 +38,7 @@ const Header = ({
             <div
               style={{
                 marginTop: 25,
-                fontSize: "13px",
+                fontSize: "14px",
                 display: "flex",
                 alignItems: "center",
               }}
@@ -63,7 +62,9 @@ const Header = ({
                   </div>
                 </div>
               </span>
-              <span style={{ marginRight: 10 }}>Prix entre : </span>
+              <span style={{ marginRight: 20, marginLeft: 20 }}>
+                Prix entre :{" "}
+              </span>
               <PriceRange setFetchRangeValues={setFetchRangeValues} />
             </div>
           </div>

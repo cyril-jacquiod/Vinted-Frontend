@@ -20,7 +20,7 @@ const Offer = () => {
   const [data, setData] = useState({});
   // STATE PERMETTANT DE SAVOIR SI DATA RECUPERE
   const [isLoading, setIsLoading] = useState(true);
-  // FICHE PAIEMENT
+  // ENCART DROITE DETAIL PRIX
   const price = data.product_price;
   const protectionFees = (price / 10).toFixed(2);
   const shippingFees = (protectionFees * 2).toFixed(2);
@@ -33,8 +33,10 @@ const Offer = () => {
       try {
         const response = await axios.get(
           // `${process.env.REACT_APP_BASE_URL}/offers/${params.id}`
-          `https://lereacteur-vinted-api.herokuapp.com/offer/${params.id}`
-          // `https://lereacteur-vinted-api.herokuapp.com/offer/63ceb13bc18578beb3db52d3`
+          // `https://lereacteur-vinted-api.herokuapp.com/offer/${params.id}`
+
+          //RECUPERATION DES INFORMATIONS IMAGES PRIX...POUR AFFICHER L'OFFRE A ACHETER
+          `http://localhost:3000/offer/${params.id}`
         );
         // VERIFICATION : console.log(response.data);
         // STOCKAGE DU RESULTAT DANS DATA
@@ -52,7 +54,7 @@ const Offer = () => {
   return isLoading ? (
     // LOADIND DE TELECHARGEMENT
     <Triangle
-      // className="home-loader"
+      className="home-loader"
       type="Puff"
       color="#017580"
       height={80}

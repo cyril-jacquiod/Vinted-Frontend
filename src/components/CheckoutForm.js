@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
-
 import axios from "axios";
-// REGELEMENT CLIENT ET RECUPERATION DES DONNEES BANCAIRES
+
+// REGLEMENT CLIENT ET RECUPERATION DES DONNEES BANCAIRES
 const CheckoutForm = ({ productName, totalPrice }) => {
   const [isPaid, setIsPaid] = useState(false);
   const stripe = useStripe();
@@ -22,7 +22,9 @@ const CheckoutForm = ({ productName, totalPrice }) => {
       // console.log(stripeResponse);
 
       const response = await axios.post(
-        `${process.env.REACT_APP_BASE_URL}/payment`,
+        // `${process.env.REACT_APP_BASE_URL}/payment`,
+        `http://localhost:3000/payment`,
+
         {
           amount: totalPrice,
           title: productName,

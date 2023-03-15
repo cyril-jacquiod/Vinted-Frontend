@@ -71,13 +71,11 @@
   padding: 0 6px 16px;
   cursor: pointer;
 }
-
 .card-container div:last-child img {
   height: 260px;
   width: 240px;
   object-fit: cover;
 }
-
 .card-avatar-username {
   display: flex;
   align-items: center;

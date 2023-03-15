@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Range, getTrackBackground } from "react-range";
 
-//
+//PARAMETRAGE DU CURSEUR
 const MIN = 1;
 const MAX = 400;
 const PriceRange = ({ setFetchRangeValues }) => {

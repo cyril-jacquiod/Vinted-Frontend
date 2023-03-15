@@ -46,7 +46,9 @@ function App() {
     const fetchData = async () => {
       const response = await axios.get(
         // `${process.env.REACT_APP_BASE_URL}/offers?priceMin=${
-        `https://lereacteur-vinted-api.herokuapp.com/offers?priceMin=${
+        // RECUPERATION DU BACK MONGODB
+        `http://localhost:3000/offer?priceMin=${
+          // `https://lereacteur-vinted-api.herokuapp.com/offers?priceMin=${
           fetchRangeValues[0]
         }&priceMax=${fetchRangeValues[1]}&sort=${
           sortPrice ? "price-desc" : "price-asc"
@@ -68,34 +70,19 @@ function App() {
         setSortPrice={setSortPrice}
         setSearch={setSearch}
       />
-      <body>
-        <Routes>
-          <Route
-            path="/"
-            element={<Home data={data} isLoading={isLoading} />}
-          />
-          {/* ROUTES FAISANT APPEL AUX COMPOSANTS (PAGES OU CONTAINERS) DES PROPS ELEMENT "HOME" "OFFER" "SIGNUP" */}
-          <Route path="/signup" element={<Signup setUser={setUser} />} />
-          <Route path="/login" element={<Login setUser={setUser} />} />
-          <Route path="/publish" element={<Publish token={token} />} />
-          {/* CARACTERE ":" INDIQUE QUE NOTRE PATH CONTIENT UN PARAMETRE DYNAMIQUE ID */}
-          <Route path="/offer/:id" element={<Offer />} />
-          <Route path="/payment" element={<Payment />} />
-        </Routes>
-      </body>
-      <footer
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          color: "white",
-          height: 40,
-          backgroundColor: "#017580",
-          marginTop: 100,
-        }}
-      >
-        Replique faite au Reacteur
-      </footer>
+      <Routes>
+        <Route path="/" element={<Home data={data} isLoading={isLoading} />} />
+        {/* ROUTES FAISANT APPEL AUX COMPOSANTS (PAGES OU CONTAINERS) DES PROPS ELEMENT "HOME" "OFFER" "SIGNUP" */}
+        <Route path="/signup" element={<Signup setUser={setUser} />} />
+        <Route path="/login" element={<Login setUser={setUser} />} />
+        <Route path="/publish" element={<Publish token={token} />} />
+        {/* CARACTERE ":" INDIQUE QUE NOTRE PATH CONTIENT UN PARAMETRE DYNAMIQUE ID */}
+        <Route path="/offer/:id" element={<Offer />} />
+        <Route path="/payment" element={<Payment />} />
+      </Routes>
+      <div>
+        <footer>Replique faite au Reacteur</footer>
+      </div>
     </Router>
   );
 }
